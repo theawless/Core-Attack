@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
+
 public class UserInput : MonoBehaviour
 {
 
@@ -41,6 +43,13 @@ public class UserInput : MonoBehaviour
     public IK ik;
 
     FreeCameraLook cameraFunctions;
+
+    //itemsystem
+    public bool CanPickUp;
+    public GameObject Item;
+    public GameObject pickText;
+    public Text curAmmo;
+    public Text carryingAmmo;
 
     void Start()
     {
@@ -105,47 +114,57 @@ public class UserInput : MonoBehaviour
             aim = Input.GetMouseButton(1);
         }
         weaponManager.aim = aim;
-        if (aim)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                anim.SetTrigger("Fire");
-            }
-        }
+        bool canFire = SharedFunctions.CheckAmmo(weaponManager.ActiveWeapon);
         if (aim)
         {
             if (!weaponManager.ActiveWeapon.CanBurst)
             {
                 if (Input.GetMouseButtonDown(0) || debugShoot)
                 {
+                    if (canFire)
                     // weaponManager.FireActiveWeapon();
-                    anim.SetTrigger("Fire");
-                    ShootRay();
-                    cameraFunctions.WiggleCrosshairAndCamera(weaponManager.ActiveWeapon, true);
-
+                    {
+                        anim.SetTrigger("Fire");
+                        ShootRay();
+                        cameraFunctions.WiggleCrosshairAndCamera(weaponManager.ActiveWeapon, true);
+                        weaponManager.ActiveWeapon.curAmmo--;
+                    }
+                    else
+                    {
+                        weaponManager.ReloadActiveWeapon();
+                        anim.SetTrigger("Reload");
+                    }
                 }
             }
             else
             {
-                if (Input.GetMouseButton(0) || debugShoot)
+                if ((Input.GetMouseButton(0) && !anim.GetCurrentAnimatorStateInfo(2).IsTag("Reload")) || debugShoot)
                 {
-                    //weaponManager.FireActiveWeapon();
-                    anim.SetTrigger("Fire");
-                    ShootRay();
-                    cameraFunctions.WiggleCrosshairAndCamera(weaponManager.ActiveWeapon, true);
-
+                    if (canFire)
+                    // weaponManager.FireActiveWeapon();
+                    {
+                        anim.SetTrigger("Fire");
+                        ShootRay();
+                        cameraFunctions.WiggleCrosshairAndCamera(weaponManager.ActiveWeapon, true);
+                        weaponManager.ActiveWeapon.curAmmo--;
+                    }
+                    else
+                    {
+                        weaponManager.ReloadActiveWeapon();
+                        anim.SetTrigger("Reload");
+                    }
                 }
             }
 
         }
         if (Input.GetAxis("Mouse ScrollWheel") != 0)
         {
-            if (Input.GetAxis("Mouse ScrollWheel") < -0.1f)
+            if (Input.GetAxis("Mouse ScrollWheel") < -0.0f)
             {
                 // Debug.Log("MouseWheel");
                 weaponManager.ChangeWeapon(false);
             }
-            else if (Input.GetAxis("Mouse ScrollWheel") > 0.1f)
+            else if (Input.GetAxis("Mouse ScrollWheel") > 0.0f)
             {
                 // Debug.Log("MouseWheel2");
                 weaponManager.ChangeWeapon(true);
@@ -153,7 +172,39 @@ public class UserInput : MonoBehaviour
         }
         AdditionalInput();
         //HandleCurves();
+        PickupItem();
+        UpdateUI();
     }
+
+    void UpdateUI()
+    {
+        curAmmo.text = weaponManager.ActiveWeapon.curAmmo.ToString();
+        carryingAmmo.text = weaponManager.ActiveWeapon.curCarryingAmmo.ToString();
+    }
+
+    void PickupItem()
+    {
+        if (CanPickUp)
+        {
+            if (!pickText.activeInHierarchy)
+            {
+                pickText.SetActive(true);
+            }
+            if (Input.GetKeyUp(KeyCode.F))
+            {
+                SharedFunctions.PickupItem(this.gameObject, Item);
+                CanPickUp = false;
+            }
+        }
+        else
+        {
+            if (pickText.activeInHierarchy)
+            {
+                pickText.SetActive(false);
+            }
+        }
+    }
+
     public GameObject bulletPrefab;
     void ShootRay()
     {
