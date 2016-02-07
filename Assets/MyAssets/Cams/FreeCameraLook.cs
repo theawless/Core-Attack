@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 //using UnityEditor;
-using UnityStandardAssets.Cameras;
-public class FreeCameraLook : PivotBasedCameraRig {
+
+public class FreeCameraLook : Pivot {
 
 	[SerializeField] private float moveSpeed = 5f;
 	[SerializeField] private float turnSpeed = 1.5f;
@@ -12,29 +12,42 @@ public class FreeCameraLook : PivotBasedCameraRig {
 
 	private float lookAngle;
 	private float tiltAngle;
-
+     
 	private const float LookDistance = 100f;
 
 	private float smoothX = 0;
 	private float smoothY = 0;
 	private float smoothXvelocity = 0;
 	private float smoothYvelocity = 0;
-    Transform cam;
-    Transform pivot;
+
+    public CrossHair activeCrosshair;
+    public float crosshairOffsetWiggle = 0.1f;
+
+    void Start()
+    {
+        ChangeCrosshair();
+    }
 
 	protected override void Awake()
 	{
 		base.Awake();
-
-        Cursor.lockState = CursorLockMode.Confined;
-
+        if (lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 		cam = GetComponentInChildren<Camera>().transform;
 		pivot = cam.parent;
 	}
-	
+	public void ChangeCrosshair()
+    {
+        activeCrosshair = GameObject.FindGameObjectWithTag("CrossHairManager").GetComponent<CrossHairManager>().activeCrosshair;
+    }
 	// Update is called once per frame
- protected 	void Update ()
+ protected override	void Update ()
 	{
+		base.Update();
+
 		HandleRotationMovement();
 
 		if (lockCursor && Input.GetMouseButtonUp (0))
@@ -46,18 +59,34 @@ public class FreeCameraLook : PivotBasedCameraRig {
 	void OnDisable()
 	{
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
-	protected override void FollowTarget (float deltaTime)
+	protected override void Follow (float deltaTime)
 	{
-		transform.position = Vector3.Lerp(transform.position, Target.position, deltaTime * moveSpeed);
+		transform.position = Vector3.Lerp(transform.position, target.position, deltaTime * moveSpeed);
 
 	}
+    float offsetX;
+    float offsetY;
+
+    void handleOffsets()
+    {
+        if(offsetX!=0)
+        {
+            offsetX = Mathf.MoveTowards(offsetX, 0, Time.deltaTime);
+        }
+        if(offsetY!=0)
+        {
+            offsetY = Mathf.MoveTowards(offsetY, 0, Time.deltaTime);
+        }
+    }
 
 	void HandleRotationMovement()
 	{
-		float x = Input.GetAxis("Mouse X");
-		float y = Input.GetAxis("Mouse Y");
+        handleOffsets();
+		float x = Input.GetAxis("Mouse X")+offsetX;
+		float y = Input.GetAxis("Mouse Y")+offsetY;
 
 		if (turnsmoothing > 0)
 		{
@@ -78,5 +107,14 @@ public class FreeCameraLook : PivotBasedCameraRig {
 
 		pivot.localRotation = Quaternion.Euler(tiltAngle,0,0);
 	}
+
+    public void WiggleCrosshairAndCamera(WeaponControl weapn,bool shoot)
+    {
+        activeCrosshair.WiggleCrosshair();
+        if(shoot)
+        {
+            offsetY = weapn.Kickback;
+        }
+    }
 
 }
