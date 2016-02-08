@@ -29,7 +29,7 @@ public class WeaponManager : MonoBehaviour
         //Debug.Log(weaponNumber.ToString());
         ActiveWeapon = WeaponList[weaponNumber].GetComponent<WeaponControl>();
         ActiveWeapon.equip = true;
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         foreach (GameObject go in WeaponList)
         {
             go.GetComponent<WeaponControl>().hasOwner = true;
