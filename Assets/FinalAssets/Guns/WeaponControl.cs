@@ -14,6 +14,7 @@ public class WeaponControl : MonoBehaviour
     public int curCarryingAmmo;
     public int maxCarryingAmmo;
 
+    public int weaponDamage;
 
     public int curAmmo;
     public bool CanBurst;
@@ -34,15 +35,31 @@ public class WeaponControl : MonoBehaviour
     BoxCollider boxCol;
     PickableItem pickableItem;
 
-    [Header("Positions")]
-    public bool hasOwner;
-    public Vector3 EquipPosition;
-    public Vector3 EquipRotation;
-    public Vector3 UnEquipPosition;
-    public Vector3 UnEquipRotation;
+    [Header("TPositions")]
+
+    public Vector3 TEquipPosition;
+    public Vector3 TEquipRotation;
+    public Vector3 TUnEquipPosition;
+    public Vector3 TUnEquipRotation;
+
+
+    [Header("CTPositions")]
+    public Vector3 CTEquipPosition;
+    public Vector3 CTEquipRotation;
+    public Vector3 CTUnEquipPosition;
+    public Vector3 CTUnEquipRotation;
+
+
     Vector3 scale;
-    public enum RestPosition { RightHip, Waist };
+    public enum RestPosition { RightHip, Waist, LeftHip, Back };
     public RestPosition restPosition;
+    public string owner;
+    public bool hasOwner;
+    private Vector3 EquipPosition;
+    private Vector3 EquipRotation;
+    private Vector3 UnEquipPosition;
+    private Vector3 UnEquipRotation;
+
     // Use this for initialization
     void Start()
     {
@@ -50,8 +67,8 @@ public class WeaponControl : MonoBehaviour
         /*bulletSpawnGO = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as GameObject;
         bulletSpawnGO.AddComponent<ParticleDirection>();
         bulletSpawnGO.GetComponent<ParticleDirection>().weapon = bulletSpawn;
-        bulletPart = bulletSpawnGO.GetComponent<ParticleSystem>();
-        */
+        bulletPart = bulletSpawnGO.GetComponent<ParticleSystem>();*/
+
         curCarryingAmmo = maxCarryingAmmo;
         curAmmo = MaxClipAmmo;
         pickableItem = GetComponentInChildren<PickableItem>();
@@ -80,10 +97,21 @@ public class WeaponControl : MonoBehaviour
             var yo = GetComponentInParent<WeaponManager>();
             var go = yo.gameObject.GetComponentInChildren<Animator>();
             //Debug.Log("poop");
+            if (yo.GetComponent<CharacterStats>().Id == "T")
+            {
+                EquipPosition = TEquipPosition;
+                EquipRotation = TEquipRotation;
+            }
+            if (yo.GetComponent<CharacterStats>().Id == "CT")
+            {
+                EquipPosition = CTEquipPosition;
+                EquipRotation = CTEquipRotation;
+            }
             transform.parent = transform.GetComponentInParent<WeaponManager>().gameObject.GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.RightHand);
             transform.localPosition = EquipPosition;
             transform.localRotation = Quaternion.Euler(EquipRotation);
-      
+
+
         }
         else
         {
@@ -97,15 +125,32 @@ public class WeaponControl : MonoBehaviour
                 boxCol.isTrigger = true;
                 rigidBody.isKinematic = true;
 
+                var yo = transform.GetComponentInParent<WeaponManager>().gameObject;
+                var go = transform.GetComponentInParent<WeaponManager>().transform.GetComponentInChildren<Animator>();
                 switch (restPosition)
                 {
                     case RestPosition.RightHip:
-                        transform.parent = transform.GetComponentInParent<WeaponManager>().transform.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.RightUpperLeg);
-
+                        transform.parent = transform.GetComponentInParent<WeaponManager>().transform.GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.RightUpperLeg);
                         break;
                     case RestPosition.Waist:
-                        transform.parent = transform.GetComponentInParent<WeaponManager>().transform.GetComponent<Animator>().GetBoneTransform(HumanBodyBones.Spine);
+                        transform.parent = transform.GetComponentInParent<WeaponManager>().transform.GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.Spine);
                         break;
+                    case RestPosition.LeftHip:
+                        transform.parent = transform.GetComponentInParent<WeaponManager>().transform.GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.LeftUpperLeg);
+                        break;
+                    case RestPosition.Back:
+                        transform.parent = transform.GetComponentInParent<WeaponManager>().transform.GetComponentInChildren<Animator>().GetBoneTransform(HumanBodyBones.LeftShoulder);
+                        break;
+                }
+                if (yo.GetComponent<CharacterStats>().Id == "T")
+                {
+                    UnEquipPosition = TUnEquipPosition;
+                    UnEquipRotation = TUnEquipRotation;
+                }
+                if (yo.GetComponent<CharacterStats>().Id == "CT")
+                {
+                    UnEquipPosition = CTUnEquipPosition;
+                    UnEquipRotation = CTUnEquipRotation;
                 }
                 transform.localPosition = UnEquipPosition;
                 transform.localRotation = Quaternion.Euler(UnEquipRotation);
@@ -120,11 +165,19 @@ public class WeaponControl : MonoBehaviour
                 rigidBody.isKinematic = false;
                 if (pickableItem.CharacterInTrigger)
                 {
-                    if (pickableItem.Owner.GetComponent<UserInput>())
+                    if (pickableItem.Owner)
                     {
-                        pickableItem.Owner.GetComponent<UserInput>().CanPickUp = true;
-                        pickableItem.Owner.GetComponent<UserInput>().Item = this.gameObject;
+                        if (pickableItem.Owner.GetComponent<HumanUserControl>())
+                        {
+                            pickableItem.Owner.GetComponent<HumanUserControl>().CanPickUp = true;
+                            pickableItem.Owner.GetComponent<HumanUserControl>().Item = this.gameObject;
+                        }
+                        else if (pickableItem.Owner.GetComponent<EnemyAI>())
+                        {
 
+                            pickableItem.Owner.GetComponent<EnemyAI>().CanPickUp = true;
+                            pickableItem.Owner.GetComponent<EnemyAI>().Item = this.gameObject;
+                        }
                     }
                 }
                 else
@@ -132,7 +185,11 @@ public class WeaponControl : MonoBehaviour
                     if (pickableItem.Owner)
                     {
                         {
-                            if (pickableItem.Owner.GetComponent<UserInput>())
+                            if (pickableItem.Owner.GetComponent<HumanUserControl>())
+                            {
+                                pickableItem.Owner = null;
+                            }
+                            else if (pickableItem.Owner.GetComponent<EnemyAI>())
                             {
                                 pickableItem.Owner = null;
                             }

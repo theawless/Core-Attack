@@ -69,6 +69,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\FinalAssets\BulletPrefabs\BombDestruction.cs" />
+    <Compile Include="Assets\FinalAssets\BulletPrefabs\BombExplosion.cs" />
     <Compile Include="Assets\FinalAssets\BulletPrefabs\BulletAutoDestruct.cs" />
     <Compile Include="Assets\FinalAssets\BulletPrefabs\ParticleDirection.cs" />
     <Compile Include="Assets\FinalAssets\Cams\CrossHair.cs" />
@@ -76,27 +78,35 @@
     <Compile Include="Assets\FinalAssets\Cams\FollowTarget.cs" />
     <Compile Include="Assets\FinalAssets\Cams\FreeCameraLook.cs" />
     <Compile Include="Assets\FinalAssets\Cams\Pivot.cs" />
-    <Compile Include="Assets\FinalAssets\Chars\Latest\Yo_Movement.cs" />
-    <Compile Include="Assets\FinalAssets\Chars\Latest\Yo_TPCharacter.cs" />
-    <Compile Include="Assets\FinalAssets\Chars\Latest\Yo_TPUserControl.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\AI\AICharacter.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\AI\CoverObject.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\AI\EnemyAI.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\AI\Sight.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\CharacterStats.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\Human\HumanCharacter.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\Human\HumanMovement.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\Human\HumanUserControl.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\SharedFunctions.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\UserControl.cs" />
+    <Compile Include="Assets\FinalAssets\CharPrefabsAndScripts\WeaponManager.cs" />
     <Compile Include="Assets\FinalAssets\Chars\Olds\New_Movement.cs" />
     <Compile Include="Assets\FinalAssets\Chars\Olds\New_TPCharacter.cs" />
     <Compile Include="Assets\FinalAssets\Chars\Olds\New_TPUserControl.cs" />
-    <Compile Include="Assets\FinalAssets\Chars\TPCharacter.cs" />
-    <Compile Include="Assets\FinalAssets\Chars\TPUserControl.cs" />
     <Compile Include="Assets\FinalAssets\Guns\ItemID.cs" />
     <Compile Include="Assets\FinalAssets\Guns\PickableItem.cs" />
     <Compile Include="Assets\FinalAssets\Guns\WeaponControl.cs" />
+    <Compile Include="Assets\FinalAssets\StartScript.cs" />
     <Compile Include="Assets\MyAssets\Chars\CharMove.cs" />
-    <Compile Include="Assets\MyAssets\Chars\CharacterStats.cs" />
     <Compile Include="Assets\MyAssets\Chars\Updated\New_CharMove.cs" />
     <Compile Include="Assets\MyAssets\Chars\Updated\New_UserInput.cs" />
     <Compile Include="Assets\MyAssets\Chars\UserInput.cs" />
-    <Compile Include="Assets\MyAssets\Chars\WeaponManager.cs" />
-    <Compile Include="Assets\MyAssets\SharedFunctions.cs" />
+    <Compile Include="Assets\menuScript.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\CharModels\ArmyPilot\ArmyPilot.mesh.xml" />
+    <None Include="Assets\CharModels\ArmyPilot\ArmyPilot.skeleton.xml" />
     <None Include="Assets\MocapAnimations\Animations\_CompleteAnimationList.txt" />
+    <None Include="Assets\MoreMoreWeapons\NewWeapons\Spas-12\Anim.txt" />
     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
     <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
@@ -179,6 +189,10 @@
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
     <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
+    <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

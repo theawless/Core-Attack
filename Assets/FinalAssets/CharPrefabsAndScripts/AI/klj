@@ -1,0 +1,15 @@
+ public bool CanPickUp;
+    public GameObject Item;
+    // Use this for initialization
+    void PickupItem()
+    {
+        if (CanPickUp)
+        {
+
+            if (Input.GetKeyUp(KeyCode.F))
+            {
+                SharedFunctions.PickupItem(this.gameObject, Item);
+                CanPickUp = false;
+            }
+        }
+    }

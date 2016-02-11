@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CrossHair : MonoBehaviour
 {
-
+    public HumanUserControl user;
     public string CrosshairName;
     public float defaultSpread = 15;
     public float maxSpread = 50;
@@ -38,7 +38,7 @@ public class CrossHair : MonoBehaviour
 
     public void ApplySpread()
     {
-        foreach(CrosshairPart im in parts )
+        foreach (CrosshairPart im in parts)
         {
             im.image.rectTransform.anchoredPosition = im.up * currentSpread;
         }
@@ -46,10 +46,10 @@ public class CrossHair : MonoBehaviour
 
     public void WiggleCrosshair()
     {
-        if(allowSpread)
+        if (allowSpread)
         {
             ChangeCursorSpread(wiggleSpread);
-            wiggle = true;
+            wiggle = false;
         }
     }
 
@@ -64,11 +64,11 @@ public class CrossHair : MonoBehaviour
     }
     public void rotateCursor(float seconds)
     {
-        if(allowRotating)
+        if (allowRotating)
         {
             isRotating = true;
             rotationTimer = seconds;
-            if(spreadWhileRotating)
+            if (spreadWhileRotating)
             {
                 ChangeCursorSpread(rotationSpeed);
             }
@@ -81,7 +81,7 @@ public class CrossHair : MonoBehaviour
         public Vector2 up;
     }
 
-    public static float AccelDecelInterpolation(float start,float end,float t)
+    public static float AccelDecelInterpolation(float start, float end, float t)
     {
         float x = end - start;
         float newT = (Mathf.Cos((t + 1) * Mathf.PI / 2)) + 0.5f;
@@ -98,12 +98,18 @@ public class CrossHair : MonoBehaviour
         defaultRotation = transform.rotation;
         currentSpread = defaultSpread;
         ChangeCursorSpread(defaultSpread);
+        user = GetComponentInParent<HumanUserControl>();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        foreach (CrosshairPart im in parts)
+        {
+            im.image.enabled=user.aim;
+        }
+
         if (isSpreadWorking)
         {
             spreadT += Time.deltaTime / spreadSpeed;
@@ -154,7 +160,7 @@ public class CrossHair : MonoBehaviour
             {
                 isRotating = false;
                 transform.rotation = defaultRotation;
-                if(spreadWhileRotating)
+                if (spreadWhileRotating)
                 {
                     ChangeCursorSpread(defaultSpread);
                 }

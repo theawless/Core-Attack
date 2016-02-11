@@ -1,0 +1,211 @@
+fileFormatVersion: 2
+guid: c2e8f3b22fcd1524a801222e81ee3ddd
+timeCreated: 1454957969
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: ' 1'
+    100002: //RootNode
+    100004: LArmCollarbone
+    100006: LArmForearm1
+    100008: LArmForearm2
+    100010: LArmHand
+    100012: LArmIndex1
+    100014: LArmIndex2
+    100016: LArmIndex3
+    100018: LArmMid1
+    100020: LArmMid2
+    100022: LArmMid3
+    100024: LArmPinky1
+    100026: LArmPinky2
+    100028: LArmPinky3
+    100030: LArmRing1
+    100032: LArmRing2
+    100034: LArmRing3
+    100036: LArmThumb1
+    100038: LArmThumb2
+    100040: LArmThumb3
+    100042: LArmUpper1
+    100044: LArmUpper2
+    100046: Lbrow
+    100048: Leyelid
+    100050: LLegAnkle
+    100052: LLegCalf
+    100054: LLegToe1
+    100056: LLegUpper
+    100058: Lmouth
+    100060: M4MB
+    100062: Mesh1
+    100064: Neck1
+    100066: NeckHead
+    100068: Pelvis
+    100070: RArmCollarbone
+    100072: RArmForearm1
+    100074: RArmForearm2
+    100076: RArmHand
+    100078: RArmIndex1
+    100080: RArmIndex2
+    100082: RArmIndex3
+    100084: RArmMid1
+    100086: RArmMid2
+    100088: RArmMid3
+    100090: RArmPinky1
+    100092: RArmPinky2
+    100094: RArmPinky3
+    100096: RArmRing1
+    100098: RArmRing2
+    100100: RArmRing3
+    100102: RArmThumb1
+    100104: RArmThumb2
+    100106: RArmThumb3
+    100108: RArmUpper1
+    100110: RArmUpper2
+    100112: Rbrow
+    100114: Reyelid
+    100116: RLegAnkle
+    100118: RLegCalf
+    100120: RLegToe1
+    100122: RLegUpper
+    100124: Rmouth
+    100126: RootFrame
+    100128: Spine1
+    100130: Spine2
+    100132: Spine3
+    100134: unity_pilot_01
+    400000: ' 1'
+    400002: //RootNode
+    400004: LArmCollarbone
+    400006: LArmForearm1
+    400008: LArmForearm2
+    400010: LArmHand
+    400012: LArmIndex1
+    400014: LArmIndex2
+    400016: LArmIndex3
+    400018: LArmMid1
+    400020: LArmMid2
+    400022: LArmMid3
+    400024: LArmPinky1
+    400026: LArmPinky2
+    400028: LArmPinky3
+    400030: LArmRing1
+    400032: LArmRing2
+    400034: LArmRing3
+    400036: LArmThumb1
+    400038: LArmThumb2
+    400040: LArmThumb3
+    400042: LArmUpper1
+    400044: LArmUpper2
+    400046: Lbrow
+    400048: Leyelid
+    400050: LLegAnkle
+    400052: LLegCalf
+    400054: LLegToe1
+    400056: LLegUpper
+    400058: Lmouth
+    400060: M4MB
+    400062: Mesh1
+    400064: Neck1
+    400066: NeckHead
+    400068: Pelvis
+    400070: RArmCollarbone
+    400072: RArmForearm1
+    400074: RArmForearm2
+    400076: RArmHand
+    400078: RArmIndex1
+    400080: RArmIndex2
+    400082: RArmIndex3
+    400084: RArmMid1
+    400086: RArmMid2
+    400088: RArmMid3
+    400090: RArmPinky1
+    400092: RArmPinky2
+    400094: RArmPinky3
+    400096: RArmRing1
+    400098: RArmRing2
+    400100: RArmRing3
+    400102: RArmThumb1
+    400104: RArmThumb2
+    400106: RArmThumb3
+    400108: RArmUpper1
+    400110: RArmUpper2
+    400112: Rbrow
+    400114: Reyelid
+    400116: RLegAnkle
+    400118: RLegCalf
+    400120: RLegToe1
+    400122: RLegUpper
+    400124: Rmouth
+    400126: RootFrame
+    400128: Spine1
+    400130: Spine2
+    400132: Spine3
+    400134: unity_pilot_01
+    4300000: Mesh1
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Mesh1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
